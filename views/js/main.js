@@ -555,7 +555,11 @@ document.addEventListener('DOMContentLoaded', function() {
   // Make the DOM call outside the loop
   var movingPizzas = document.getElementById('movingPizzas1');
 
-  for (var i = 0; i < 20; i++) {
+  // Determine the number of pizzas necessary depending on screen size
+  var rows = window.screen.height % 216;
+  var numberOfPizzas = cols * rows;
+
+  for (var i = 0; i < numberOfPizzas; i++) {
     elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza-reduced.png";
