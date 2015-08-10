@@ -508,6 +508,7 @@ function updatePositions() {
   var scrollNumber = document.body.scrollTop / 1250;
   var phaseArray = [];
 
+  // Perform recurrent calculations and save them in array for next loop 
   for (var j = 0; j < 5; j++) {
     phaseArray.push(100 * Math.sin(scrollNumber + j));
   }
@@ -537,6 +538,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var s = 256;
   var basicLeftArray = [];
 
+  // Perform recurrent calculations and save them in array for next loop 
   for (var j = 0; j < cols; j++) {
     basicLeftArray.push(j * s);
   }
