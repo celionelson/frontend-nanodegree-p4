@@ -71,3 +71,23 @@ Feeling uninspired by the portfolio? Here's a list of cool portfolios I found af
 * <a href="http://nicoledominguez.com/portfolio/">http://nicoledominguez.com/portfolio/</a>
 * <a href="http://www.roxannecook.com/">http://www.roxannecook.com/</a>
 * <a href="http://www.84colors.com/portfolio.html">http://www.84colors.com/portfolio.html</a>
+
+### Changes made to complete project
+
+####Part 1: Optimize PageSpeed Insights score for index.html
+
+* Optimized the images by reducing their size according to the website's needs
+* Ran non critical render blocking scripts asynchroneously or on media type condition (such as print.css, perfmatters.js, google analytics)
+* Used WebFont loader for google fonts
+* Grouped properties in CSS and inlined CSS in index.html
+* Minified CSS, JS and HTML files
+
+####Part 2: Optimize Frames per Second in pizza.html
+
+* Optimized the images by reducing their size according to the website's needs
+* Minified CSS, JS and HTML files
+* Made multiple modifications in main.js :
+  * Extracted variables calculations from loops
+  * Extracted elements creations from loops
+  * Extracted DOM calls from loops
+  * Adjust number of moving pizzas displayed according to screen size
