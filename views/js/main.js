@@ -450,12 +450,16 @@ var resizePizzas = function(size) {
 
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
-    // Calculate dx and newwidth outside the for loop for the first randomPizzaContainer as they will be the same for all
-    var dx = determineDx(document.getElementsByClassName("randomPizzaContainer")[0], size);
-    var newwidth = (document.getElementsByClassName("randomPizzaContainer")[0].offsetWidth + dx) + 'px';
-    
-    for (var i = 0; i < document.getElementsByClassName("randomPizzaContainer").length; i++) {
-      document.getElementsByClassName("randomPizzaContainer")[i].style.width = newwidth;
+    // Create variable to save document.getElementsByClassName("randomPizzaContainer")
+    var container = document.getElementsByClassName("randomPizzaContainer");
+
+    // Calculate dx, newwidth and len outside the for loop for the first randomPizzaContainer as they will be the same for all
+    var dx = determineDx(container[0], size);
+    var newwidth = (container[0].offsetWidth + dx) + 'px';
+    var len = container.length;
+
+    for (var i = 0; i < len; i++) {
+      container[i].style.width = newwidth;
     }
   }
 
@@ -545,15 +549,21 @@ document.addEventListener('DOMContentLoaded', function() {
     basicLeftArray.push(j * s);
   }
 
+  // Create the element outside the loop
+  var elem;
+
+  // Make the DOM call outside the loop
+  var movingPizzas = document.getElementById('movingPizzas1');
+
   for (var i = 0; i < 20; i++) {
-    var elem = document.createElement('img');
+    elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza-reduced.png";
     elem.style.height = "100px";
     elem.style.width = "73.333px";
     elem.basicLeft = basicLeftArray[i % cols];
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    document.getElementById("movingPizzas1").appendChild(elem);
+    movingPizzas.appendChild(elem);
   }
   updatePositions();
 });
