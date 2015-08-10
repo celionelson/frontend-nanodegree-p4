@@ -487,8 +487,10 @@ var frame = 0;
 // Logs the average amount of time per 10 frames needed to move the sliding background pizzas on scroll.
 function logAverageFrame(times) {   // times is the array of User Timing measurements from updatePositions()
   var numberOfEntries = times.length;
+  var loopStart = numberOfEntries - 1;
+  var loopEnd = numberOfEntries - 11;
   var sum = 0;
-  for (var i = numberOfEntries - 1; i > numberOfEntries - 11; i--) {
+  for (var i = loopStart; i > loopEnd; i--) {
     sum = sum + times[i].duration;
   }
   console.log("Average time to generate last 10 frames: " + sum / 10 + "ms");
@@ -502,12 +504,18 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  var items = document.querySelectorAll('.mover');
-  var scrollNumber = document.body.scrollTop;
+  var items = document.getElementsByClassName('mover');
+  var scrollNumber = document.body.scrollTop / 1250;
+  var phaseArray = [];
 
-  for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((scrollNumber / 1250) + (i % 5));
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+  for (var j = 0; j < 5; j++) {
+    phaseArray.push(100 * Math.sin(scrollNumber + j));
+  }
+  
+  var len = items.length;
+
+  for (var i = 0; i < len; i++) {
+    items[i].style.left = items[i].basicLeft + phaseArray[i % 5] + 'px';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -527,14 +535,19 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
+  var basicLeftArray = [];
 
-  for (var i = 0; i < 200; i++) {
+  for (var j = 0; j < cols; j++) {
+    basicLeftArray.push(j * s);
+  }
+
+  for (var i = 0; i < 20; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
     elem.style.height = "100px";
     elem.style.width = "73.333px";
-    elem.basicLeft = (i % cols) * s;
+    elem.basicLeft = basicLeftArray[i % cols];
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
